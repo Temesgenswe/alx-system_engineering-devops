@@ -1,23 +1,24 @@
 #!/usr/bin/python3
-"""Exports data in the CSV format"""
+"""Export to csv the information about user TODO list progress"""
+import csv
+import requests
+from sys import argv
 
 if __name__ == "__main__":
+    user_id = argv[1]
 
-    import csv
-    import requests
-    import sys
+    url = "https://jsonplaceholder.typicode.com/"
+    uri_user_id = "users/{}".format(user_id)
+    uri_todos = "todos"
 
-    userId = sys.argv[1]
-    user = requests.get("https://jsonplaceholder.typicode.com/users/{}"
-                        .format(userId))
-    name = user.json().get('username')
-    todos = requests.get('https://jsonplaceholder.typicode.com/todos')
+    user_name = requests.get(url + uri_user_id).json().get("username")
+    tasks = requests.get(url + uri_todos, params={"userId": user_id}).json()
 
-    filename = userId + '.csv'
-    with open(filename, mode='w') as f:
-        writer = csv.writer(f, delimiter=',', quotechar='"',
-                            quoting=csv.QUOTE_ALL, lineterminator='\n')
-        for task in todos.json():
-            if task.get('userId') == int(userId):
-                writer.writerow([userId, name, str(task.get('completed')),
-                                 task.get('title')])
+    with open("{}.csv".format(user_id), "w", newline="") as csvfile:
+        writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+        [writer.writerow(
+            [user_id,
+             user_name,
+             task.get("completed"),
+             task.get("title")]
+         ) for task in tasks]
