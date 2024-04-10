@@ -1,28 +1,35 @@
 #!/usr/bin/python3
-"""
-queries the Reddit API and returns the number
-of subscribers (not active users, total subscribers)
-for a given subreddit. If an invalid subreddit is given,
-the function should return 0.
-"""
+"""Module that consumes the Reddit API and returns the number of subscribers"""
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """returns number of total subscribers"""
-    url = ("https://api.reddit.com/r/{}/about".format(subreddit))
-    headers = {'User-Agent': 'CustomClient/1.0'}
-    response = requests.get(url, headers=headers, allow_redirects=False)
+    """Queries the Reddit API and returns the number of subscribers (not
+    active users, total subscribers) for a given subreddit.
 
-    if response.status_code != 200:
-        return (0)
-    response = response.json()
-    if 'data' in response:
-        return (response.get('data').get('subscribers'))
+    If not a valid subreddit, return 0.
+    Invalid subreddits may return a redirect to search results. Ensure that
+    you are not following redirects.
 
-    else:
-        return (0)
-        return all_data.get('data').get('subscribers')
+    Args:
+        subreddit (str): subreddit
 
-    except:
-        return 0
+    Returns:
+        int: number of subscribers
+    """
+    base_url = 'https://www.reddit.com/r/'
+
+    url = '{}{}/about.json'.format(base_url, subreddit)
+    headers = {
+        'User-Agent':
+        'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) \
+        Gecko/20100401 Firefox/3.6.3 (FM Scene 4.6.1)'
+    }
+    results = requests.get(
+        url,
+        headers=headers,
+        allow_redirects=False
+    )
+    if results.status_code == 200:
+        return results.json()['data']['subscribers']
+    return 0
