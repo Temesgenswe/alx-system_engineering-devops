@@ -1,3 +1,7 @@
+
+![image](https://github.com/Temesgenswe/alx-system_engineering-devops/assets/101357503/a55660eb-91d6-4250-9b00-694a3e15f234)
+
+
 Requirements
 General
 A README.md file, at the root of the folder of the project, is mandatory
