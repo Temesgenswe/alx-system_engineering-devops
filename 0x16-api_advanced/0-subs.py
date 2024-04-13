@@ -1,18 +1,24 @@
 #!/usr/bin/python3
-""" script to obtain subscribers
-    count from a subreddit
 """
-from requests import get
+queries the Reddit API and returns the number
+of subscribers (not active users, total subscribers)
+for a given subreddit. If an invalid subreddit is given,
+the function should return 0.
+"""
+import requests
 
 
 def number_of_subscribers(subreddit):
-    """ function to get subscriber count"""
-    if subreddit and type(subreddit) is str:
-        subscribers = 0
-        url = 'https://reddit.com/r/{}/about.json'.format(subreddit)
-        headers = {'user-agent': 'my-app/0.0.1'}
-        req = get(url, headers=headers)
-        if req.status_code == 200:
-            data = req.json()
-            subscribers = data.get('data', {}).get('subscribers', 0)
-        return subscribers
+    """returns number of total subscribers"""
+    url = ("https://api.reddit.com/r/{}/about".format(subreddit))
+    headers = {'User-Agent': 'CustomClient/1.0'}
+    response = requests.get(url, headers=headers, allow_redirects=False)
+
+    if response.status_code != 200:
+        return (0)
+    response = response.json()
+    if 'data' in response:
+        return (response.get('data').get('subscribers'))
+
+    else:
+        return (0)
