@@ -1,22 +1,19 @@
 #!/usr/bin/python3
+""" request the total subscribers in a sub reddit """
 import requests
-"""
-function that queries reddit api and returns number
-of subs
-"""
 
 
 def number_of_subscribers(subreddit):
+    """ function to get total subscribers
+
+    Args:
+        subreddit (string): subreddit queried
     """
-    function definition of getting number of subs
-    """
-    url = "https://api.reddit.com/r/{}/about".format(subreddit)
-    header = {'User-Agent': 'CustomClient/1.0'}
-    req = requests.get(url, headers=header, allow_redirects=False)
-    if req.status_code != 200:
-        return (0)
-    req = req.json()
-    if "data" in req:
-        return (req.get("data").get("subscribers"))
+    web = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
+    headers = {'User-Agent': 'MyAPI/0.1'}
+    main = requests.get(web,
+                        headers=headers)
+    if (main.json().get('error') is not None):
+        return 0
     else:
-        return (0)
+        return main.json()['data']['subscribers']
