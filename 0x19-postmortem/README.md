@@ -14,7 +14,10 @@ And to ensure that the root cause(s) of the outage has been discovered and that 
 
 
 ### Issue Summary
-
+    short summary (5 sentences)
+    list the duration along with start and end times (include timezone)
+    state the impact (most user requests resulted in 500 errors, at peak 100%)
+    close with root cause
 ### Timeline
 
 ### Root Cause
