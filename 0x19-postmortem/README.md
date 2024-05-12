@@ -45,3 +45,4 @@ Specific tasks to address the issue include:
 - Update monitoring tools to include more granular resource usage data.
 - Provide additional training for operations team members on troubleshooting web application issues.
 
+This postmortem provides an overview of a web stack outage that occurred due to a misconfiguration in the caching layer. It highlights the timeline, actions are taken, misleading investigation paths, root cause, resolution, and the corrective/preventative measures to be implemented. By addressing these issues and implementing the suggested tasks, the aim is to improve system stability, enhance performance, and minimize the chances of similar outages in the future.
