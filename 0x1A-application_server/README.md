@@ -1,4 +1,6 @@
 # Requirements
+
+This web infrastructure is already serving web pages via Nginx that you installed in my first web stack project. While a web server can also serve dynamic content, this task is usually given to an application server. In this project we will add this piece to our infrastructure, plug it to your Nginx and make is serve our Airbnb clone project.
 ![image](https://github.com/Temesgenswe/alx-system_engineering-devops/assets/101357503/a55660eb-91d6-4250-9b00-694a3e15f234)
 
 
