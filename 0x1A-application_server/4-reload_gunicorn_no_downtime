@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-# Gracefully reloads Gunicorn.
-#shellcheck disable=SC2009
-ps aux | grep gunicorn | awk '{ print $2 }' | xargs kill -HUP
+# A script that reloads Gunicorn in a graceful way
+sudo pkill -HUP gunicorn
+sudo systemctl restart gunicorn.service
+sudo systemctl restart gunicorn_api.service
